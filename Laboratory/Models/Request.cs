@@ -21,6 +21,7 @@ namespace Laboratory.Models
         public int PhoneNo { get; set; }
         public DateTime BirthDate { get; set; }
         public int MidecalfileNo { get; set; }
-
+        public DateTime DateSelected { get; set; }
+        
     }
 }

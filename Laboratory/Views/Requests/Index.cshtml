@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Laboratory.Models.Request>
+﻿@model IEnumerable<Laboratory.Models.Request> 
 
 @{
     ViewData["Title"] = "Index";
@@ -13,11 +13,48 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-
-
+    <div class="row">
+        <div class="col">
+            <select class="mb-3 btn btn-light" id="language-Selector">
+                <option value="en">English</option>
+                <option value="ar">Arabic</option>
+            </select>
+        </div>
+        <div class="col">
+            <button class="btn btn-info text-white">System Config</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col mb-3">
+            <h5 class="py-3 text-center text-white bg-info" >
+                Students and Screening Application Form
+            </h5>
+        </div>
+    </div>
+<div class="col-3">
+    <div class="form-group">
+        <label asp-for="College" class="control-label text-info"></label>
+        <select asp-for="College" class="form-select">
+            <option>College</option>
+            <option value="1">الطب البشري(المقر الرئيسي)</option>
+            <option value="2">الطب والعلوم الطبية(القطاع الجنوبي)</option>
+            <option value="3">طب الأسنان(المقر الرئيسي)</option>
+            <option value="4">الصيدلة(المقر الرئيسي)</option>
+            <option value="5">الصيدلة(القطاع الجنوبي)</option>
+            <option value="6">العلوم التطبيقية</option>
+            <option value="7">البصريات</option>
+            <option value="8">التمريض</option>
+            <option value="9">التأهيل الطبي</option>
+            <option value="10">العلوم الصحية</option>
+            <option value="11">الصحة العامة والمعلوماتية</option>
+            <option value="12">كلية الزراعة</option>
+        </select>
+        <span asp-validation-for="College" class="text-danger"></span>
+    </div>
+</div>
 <table class="table">
     <thead>
-        <tr>
+        <tr class="info">
             <th>
                 @Html.DisplayNameFor(model => model.NationalId)
             </th>
