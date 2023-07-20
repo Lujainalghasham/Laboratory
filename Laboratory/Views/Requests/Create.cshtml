@@ -1,0 +1,130 @@
+﻿@model Laboratory.Models.Request
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Request</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+    <div class="row">
+        <div class="col">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="NationalId" class="control-label text-info"></label>
+                        <input asp-for="NationalId" class="form-control" />
+                        <span asp-validation-for="NationalId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UniversityNo" class="control-label text-info"></label>
+                        <input asp-for="UniversityNo" class="form-control" />
+                        <span asp-validation-for="UniversityNo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StudentStatus" class="control-label text-info"></label>
+                        <input asp-for="StudentStatus" class="form-control" />
+                        <span asp-validation-for="StudentStatus" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="College" class="control-label text-info"></label>
+                        <input asp-for="College" class="form-control" />
+                        <span asp-validation-for="College" class="text-danger"></span>
+                    </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+                    <div class="form-group">
+                        <label asp-for="FirstNameEn" class="control-label text-info"></label>
+                        <input asp-for="FirstNameEn" class="form-control" />
+                        <span asp-validation-for="FirstNameEn" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FatherNameEn" class="control-label text-info"></label>
+                        <input asp-for="FatherNameEn" class="form-control" />
+                        <span asp-validation-for="FatherNameEn" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="GrandfatherNameEn" class="control-label text-info"></label>
+                        <input asp-for="GrandfatherNameEn" class="form-control" />
+                        <span asp-validation-for="GrandfatherNameEn" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FamilyNameEn" class="control-label text-info"></label>
+                        <input asp-for="FamilyNameEn" class="form-control" />
+                        <span asp-validation-for="FamilyNameEn" class="text-danger"></span>
+                    </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+                    <div class="form-group">
+                        <label asp-for="FirstNameAr" class="control-label text-info"></label>
+                        <input asp-for="FirstNameAr" class="form-control" />
+                        <span asp-validation-for="FirstNameAr" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FatherNameAr" class="control-label text-info"></label>
+                        <input asp-for="FatherNameAr" class="form-control" />
+                        <span asp-validation-for="FatherNameAr" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="GrandfatherNameAr" class="control-label text-info"></label>
+                        <input asp-for="GrandfatherNameAr" class="form-control" />
+                        <span asp-validation-for="GrandfatherNameAr" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FamilyNameAr" class="control-label text-info"></label>
+                        <input asp-for="FamilyNameAr" class="form-control" />
+                        <span asp-validation-for="FamilyNameAr" class="text-danger"></span>
+                    </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class ="col" >
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label text-info"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PhoneNo" class="control-label text-info"></label>
+                        <input asp-for="PhoneNo" class="form-control" />
+                        <span asp-validation-for="PhoneNo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BirthDate" class="control-label text-info"></label>
+                        <input asp-for="BirthDate" class="form-control" />
+                        <span asp-validation-for="BirthDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MidecalfileNo" class="control-label text-info"></label>
+                        <input asp-for="MidecalfileNo" class="form-control" />
+                        <span asp-validation-for="MidecalfileNo" class="text-danger"></span>
+                    </div>
+        </div>
+    </div>
+           <div class="row">
+               <>
+           </div>
+            
+            
+           
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-info" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
