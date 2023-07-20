@@ -19,11 +19,15 @@
                         <input asp-for="NationalId" class="form-control" />
                         <span asp-validation-for="NationalId" class="text-danger"></span>
                     </div>
+                </div>
+                <div class="col">
                     <div class="form-group">
                         <label asp-for="UniversityNo" class="control-label text-info"></label>
                         <input asp-for="UniversityNo" class="form-control" />
                         <span asp-validation-for="UniversityNo" class="text-danger"></span>
                     </div>
+                </div>
+                    
                     <div class="form-group">
                         <label asp-for="StudentStatus" class="control-label text-info"></label>
                         <input asp-for="StudentStatus" class="form-control" />
@@ -33,7 +37,7 @@
                         <label asp-for="College" class="control-label text-info"></label>
                         <input asp-for="College" class="form-control" />
                         <span asp-validation-for="College" class="text-danger"></span>
-                    </div>
+                   
         </div>
     </div>
     <div class="row">
@@ -109,8 +113,16 @@
         </div>
     </div>
            <div class="row">
-               <>
+               <div class="col">
+                   <li>
+                        <p class="text-danger">
+                            In case the Id is not available, please attach a copy
+                            of Qassim University student file
+                        </p>
+                   </li>
+               </div>
            </div>
+            <hr class="bg-dark">
             
             
            
