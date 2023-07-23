@@ -53,8 +53,8 @@
                         <label asp-for="StudentStatus" class="control-label text-info"></label>
                         <select asp-for="StudentStatus" class="form-select">
                             <option>Student Status</option>
-                            <option value="1">New Student</option>
-                            <option value="2">Intern</option>
+                            <option value="New Student">New Student</option>
+                            <option value="Intern">Intern</option>
                         </select>
                         <!-- <input asp-for="StudentStatus" class="form-control" /> -->
                         <span asp-validation-for="StudentStatus" class="text-danger"></span>
@@ -163,7 +163,7 @@
                     <div class="col">
                     <div class="form-group">
                         <label asp-for="BirthDate" class="control-label text-info"></label>
-                        <input asp-for="BirthDate" class="form-control" />
+                        <input asp-for="BirthDate" type="date" class="form-control" />
                         <span asp-validation-for="BirthDate" class="text-danger"></span>
                     </div>
                     </div>
@@ -193,7 +193,7 @@
                 <div class="col-4">
                     <div class="form-group">
                         <label asp-for="DateSelected" class="control-label text-info"></label>
-                        <input asp-for="DateSelected" class="form-control" />
+                        <input asp-for="DateSelected" type="date" class="form-control" />
                         <span asp-validation-for="DateSelected" class="text-danger"></span>
                     </div>
                 </div>

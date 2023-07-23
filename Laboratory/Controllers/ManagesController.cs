@@ -22,9 +22,9 @@ namespace Laboratory.Controllers
         // GET: Manages
         public async Task<IActionResult> Index()
         {
-              return _context.Manage != null ? 
-                          View(await _context.Manage.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Manage'  is null.");
+            return _context.Manage != null ?
+                        View(await _context.Manage.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Manage'  is null.");
         }
 
         // GET: Manages/Details/5
@@ -70,17 +70,8 @@ namespace Laboratory.Controllers
         // GET: Manages/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Manage == null)
-            {
-                return NotFound();
-            }
-
-            var manage = await _context.Manage.FindAsync(id);
-            if (manage == null)
-            {
-                return NotFound();
-            }
-            return View(manage);
+            var limitationCountResult = _context.Manage.Where(x => x.Name == "limitationDays").FirstOrDefault();
+            return View(limitationCountResult == null ? 0 : limitationCountResult.Value);
         }
 
         // POST: Manages/Edit/5
@@ -88,34 +79,22 @@ namespace Laboratory.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Value")] Manage manage)
+        public async Task<IActionResult> Edit(int limitationDays)
         {
-            if (id != manage.Id)
+            var limitationDaysObject = _context.Manage.Where(x => x.Name == "limitationDays").FirstOrDefault();
+            if (limitationDaysObject == null)
             {
-                return NotFound();
+                limitationDaysObject = new Manage();
+                limitationDaysObject.Name = "limitationDays";
+                limitationDaysObject.Value = limitationDays;
+                _context.Add(limitationDaysObject);
             }
-
-            if (ModelState.IsValid)
+            else
             {
-                try
-                {
-                    _context.Update(manage);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ManageExists(manage.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                limitationDaysObject.Value = limitationDays;
             }
-            return View(manage);
+            _context.SaveChanges();
+            return View(limitationDays);
         }
 
         // GET: Manages/Delete/5
@@ -150,14 +129,14 @@ namespace Laboratory.Controllers
             {
                 _context.Manage.Remove(manage);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ManageExists(int id)
         {
-          return (_context.Manage?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Manage?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
