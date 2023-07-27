@@ -8,6 +8,12 @@
 
 <h4>Request</h4>
 <hr />
+@if (ViewBag.ErrorMessage is not null)
+{
+   <div class="text-danger h2 w-50">
+       @ViewBag.ErrorMessage
+   </div>
+}
 <div class="row">
     <div class="col">
         <form asp-action="Create">
@@ -56,7 +62,6 @@
                             <option value="New Student">New Student</option>
                             <option value="Intern">Intern</option>
                         </select>
-                        <!-- <input asp-for="StudentStatus" class="form-control" /> -->
                         <span asp-validation-for="StudentStatus" class="text-danger"></span>
                     </div>
                     </div>
@@ -65,18 +70,18 @@
                             <label asp-for="College" class="control-label text-info"></label>
                             <select asp-for="College" class="form-select" >
                             <option>College</option>
-                            <option value="1">الطب البشري(المقر الرئيسي)</option>
-                            <option value="2">الطب والعلوم الطبية(القطاع الجنوبي)</option>
-                            <option value="3">طب الأسنان(المقر الرئيسي)</option>
-                            <option value="4">الصيدلة(المقر الرئيسي)</option>
-                            <option value="5">الصيدلة(القطاع الجنوبي)</option>
-                            <option value="6">العلوم التطبيقية</option>
-                            <option value="7">البصريات</option>
-                            <option value="8">التمريض</option>
-                            <option value="9">التأهيل الطبي</option>
-                            <option value="10">العلوم الصحية</option>
-                            <option value="11">الصحة العامة والمعلوماتية</option>
-                            <option value="12">كلية الزراعة</option>
+                            <option >الطب البشري(المقر الرئيسي)</option>
+                            <option >الطب والعلوم الطبية(القطاع الجنوبي)</option>
+                            <option >طب الأسنان(المقر الرئيسي)</option>
+                            <option >الصيدلة(المقر الرئيسي)</option>
+                            <option >الصيدلة(القطاع الجنوبي)</option>
+                            <option >العلوم التطبيقية</option>
+                            <option >البصريات</option>
+                            <option >التمريض</option>
+                            <option >التأهيل الطبي</option>
+                            <option >العلوم الصحية</option>
+                            <option >الصحة العامة والمعلوماتية</option>
+                            <option >كلية الزراعة</option>
                             </select>
                         <!-- <input asp-for="College" class="form-control" /> -->
                             <span asp-validation-for="College" class="text-danger"></span>
@@ -156,7 +161,7 @@
                 <div class="col">
                     <div class="form-group">
                         <label asp-for="PhoneNo" class="control-label text-info"></label>
-                        <input asp-for="PhoneNo" class="form-control" />
+                        <input asp-for="PhoneNo" class="form-control" placeholder="05********"/>
                         <span asp-validation-for="PhoneNo" class="text-danger"></span>
                     </div>
                 </div>
@@ -192,16 +197,27 @@
             <div class="row">
                 <div class="col-4">
                     <div class="form-group">
-                        <label asp-for="DateSelected" class="control-label text-info"></label>
+                        @*<label asp-for="DateSelected" class="control-label text-info"></label>
                         <input asp-for="DateSelected" type="date" class="form-control" />
-                        <span asp-validation-for="DateSelected" class="text-danger"></span>
+                        <span asp-validation-for="DateSelected" class="text-danger"></span>*@
+                        <select class="form-control" name="DateSelected">
+                        @if (ViewBag.AvalibleDates is not null)
+                        {
+                            var avalibleDates = (List<DateTime>)ViewBag.AvalibleDates;
+                                foreach (var avalibleDate in avalibleDates)
+                                {
+                                    <option>@avalibleDate.ToLongDateString()</option>
+                                }
+                            }
+                        </select>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col checkbox">
-                    <asp:CheckBox ID="CheckBox1" Text="I declare that the
-                        above-mentioned data is accurate and filled out by me personally." Checked="false" />
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="flexCheckChecked" required>
+                    <label for="flexCheckChecked" class="form-check-label mb-3" >I declare that the
+                        above-mentioned data is accurate and filled out by me personally.</label>
                 </div>
             </div>
             <hr class="bg-dark">

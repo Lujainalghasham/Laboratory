@@ -6,9 +6,6 @@
 
 <h1>Index</h1>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -24,6 +21,7 @@
         <a class="btn btn-info text-white" asp-controller="Manages" asp-action="Edit">System Config</a>
         </div>
     </div>
+    <form method="get" asp-action="index">
     <div class="row">
         <div class="col mb-3">
             <h5 class="py-3 text-center text-white bg-info" >
@@ -32,35 +30,45 @@
         </div>
     </div>
     <div class="row">
-    <div class="col-3">
+    <div class="col-2">
         <div class="form-group">
             <select name="College" class="form-select">
-                <option>College</option>
-                <option value="1">الطب البشري(المقر الرئيسي)</option>
-                <option value="2">الطب والعلوم الطبية(القطاع الجنوبي)</option>
-                <option value="3">طب الأسنان(المقر الرئيسي)</option>
-                <option value="4">الصيدلة(المقر الرئيسي)</option>
-                <option value="5">الصيدلة(القطاع الجنوبي)</option>
-                <option value="6">العلوم التطبيقية</option>
-                <option value="7">البصريات</option>
-                <option value="8">التمريض</option>
-                <option value="9">التأهيل الطبي</option>
-                <option value="10">العلوم الصحية</option>
-                <option value="11">الصحة العامة والمعلوماتية</option>
-                <option value="12">كلية الزراعة</option>
+                <option></option>
+                <option>الطب البشري(المقر الرئيسي)</option>
+                <option>الطب والعلوم الطبية(القطاع الجنوبي)</option>
+                <option>طب الأسنان(المقر الرئيسي)</option>
+                <option>الصيدلة(المقر الرئيسي)</option>
+                <option>الصيدلة(القطاع الجنوبي)</option>
+                <option>العلوم التطبيقية</option>
+                <option>البصريات</option>
+                <option>التمريض</option>
+                <option>التأهيل الطبي</option>
+                <option>العلوم الصحية</option>
+                <option>الصحة العامة والمعلوماتية</option>
+                <option>كلية الزراعة</option>
             </select>
         </div>
+        </div>
+        <div class="col-2">
+            <div class="form-group">
+                <select name="StudentStatus" class="form-select">
+                    <option></option>
+                    <option>New Student</option>
+                    <option>Intern</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2">
+            <input class="btn btn-info text-white" type="submit" value="search" />
+        </div>
+        <div class="col-1">
+            <button class="btn btn-info text-white">Extract</button>
+        </div>
+        <div class="col-3 text-danger">
+            <p>Extract all or as per search results</p>
+        </div>
     </div>
-    <div class="col-3">
-        <input type="search" class="form-control" />
-    </div>
-    <div class="col-1">
-        <button class="btn btn-info text-white">Extract</button>
-    </div>
-    <div class="col-3 text-danger">
-        <p>Extract all or as per search results</p>
-    </div>
-</div>
+</form>
 <table class="table">
     <thead>
         <tr class="info">
@@ -78,6 +86,9 @@
             </th>
             <th>
                 Student Status
+            </th>
+            <th>
+                College
             </th>
         </tr>
     </thead>
@@ -102,6 +113,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.StudentStatus)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.College)
+                </td>
             <td>
                     <a class="btn btn-info text-white" asp-action="Details" asp-route-id="@item.Id">Details</a>
             </td>

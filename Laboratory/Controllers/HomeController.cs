@@ -1,4 +1,5 @@
 ﻿using Laboratory.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,10 +8,25 @@ namespace Laboratory.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public HomeController(ILogger<HomeController> logger,UserManager<IdentityUser> userManager,RoleManager<IdentityRole> roleManager)
         {
             _logger = logger;
+            _userManager = userManager;
+            _roleManager = roleManager;
+        }
+
+        public async Task<IActionResult> CreateRoles()
+        {
+            var roles = new[] {"Admin", "Recep" };
+            foreach (var role in roles)
+            {
+                var roleExist = await _roleManager.RoleExistsAsync(role);
+                if(!roleExist)
+                    await _roleManager.CreateAsync(new IdentityRole(role));
+            }
+            return Ok();
         }
 
         public IActionResult Index()

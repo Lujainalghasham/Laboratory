@@ -94,6 +94,7 @@ namespace Laboratory.Controllers
                 limitationDaysObject.Value = limitationDays;
             }
             _context.SaveChanges();
+            //return RedirectToAction(nameof(Index), "Requests");
             return View(limitationDays);
         }
 

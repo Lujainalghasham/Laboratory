@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Laboratory.Data;
 using Laboratory.Models;
+using Laboratory.Data.Migrations;
 
 namespace Laboratory.Controllers
 {
@@ -20,11 +21,24 @@ namespace Laboratory.Controllers
         }
 
         // GET: Requests
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? college, string? studentstatus)
         {
-              return _context.Request != null ? 
-                          View(await _context.Request.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Request'  is null.");
+
+            if (!string.IsNullOrEmpty(college) && !string.IsNullOrEmpty(studentstatus))
+            {
+                return View(await _context.Request.Where(r => r.College == college && r.StudentStatus == studentstatus).ToListAsync());
+            }
+            else if (!string.IsNullOrEmpty(college) || ! string.IsNullOrEmpty(studentstatus))
+            {
+                return View(await _context.Request.Where(r => r.College == college || r.StudentStatus == studentstatus).ToListAsync());
+            }
+            else
+            {
+                return _context.Request != null ?
+                    View(await _context.Request.ToListAsync()) :
+                    Problem("Entity set 'ApplicationDbContext.Requests' is null");
+            }
+
         }
 
         // GET: Requests/Details/5
@@ -48,23 +62,67 @@ namespace Laboratory.Controllers
         // GET: Requests/Create
         public IActionResult Create()
         {
+            var manage = _context.Manage.Where(x => x.Name == "limitationDays").FirstOrDefault();
+            if (manage is null)
+            {
+                ViewBag.ErrorMessage = "You Need to Set the Limit in Manage Page";
+                return View();
+            }
+            var limitDays = manage.Value;
+            var dateTo = DateTime.Now.AddDays(30);    
+           List<DateTime> avalibleDates = new List<DateTime>();
+            for (var date = DateTime.Now; date <= dateTo; date = date.AddDays(1)) 
+            { 
+                if (date.DayOfWeek.ToString() == "Friday" || date.DayOfWeek.ToString() == "Saturday")
+                {
+                    continue;
+                }
+                var requestCount = _context.Request.Where(x => x.DateSelected.Date == date.Date).Count();
+                if (requestCount >= limitDays)
+                {
+                    continue;
+                 }
+                avalibleDates.Add(date);
+            }
+            ViewBag.AvalibleDates = avalibleDates;   
             return View();
         }
+        
 
         // POST: Requests/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UniversityNo,StudentStatus,College,FirstNameEn,FatherNameEn,GrandfatherNameEn,FamilyNameEn,FirstNameAr,FatherNameAr,GrandfatherNameAr,FamilyNameAr,Email,PhoneNo,BirthDate,MidecalfileNo")] Request request)
+        public async Task<IActionResult> Create([Bind("Id,NationalId,UniversityNo,StudentStatus,College,FirstNameEn,FatherNameEn,GrandfatherNameEn,FamilyNameEn,FirstNameAr,FatherNameAr,GrandfatherNameAr,FamilyNameAr,Email,PhoneNo,BirthDate,MidecalfileNo,DateSelected")] Request request)
         {
+            var manage = _context.Manage.Where(x => x.Name == "limitationDays").FirstOrDefault();  
+            if (manage is null)
+            {
+                ViewBag.ErrorMessage = "You Need to Set the Limit in Manage Page";
+                return View();
+            }
+            var limitDays = manage.Value;
+            var requestCount = _context.Request.Where(x=>x.DateSelected == request.DateSelected).Count();
+            if (requestCount >= limitDays)
+            {
+                ViewBag.ErrorMessage = "Sorry, The Limit of Request for this day is Reached";
+                return View();
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(request);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+               //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Message");
             }
             return View(request);
+        }
+
+        public IActionResult Message()
+        {
+            return View();
         }
 
         // GET: Requests/Edit/5
