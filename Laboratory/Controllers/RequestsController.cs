@@ -37,9 +37,8 @@ namespace Laboratory.Controllers
             }
             else
             {
-                return _context.Request != null ?
-                    View(await _context.Request.ToListAsync()) :
-                    Problem("Entity set 'ApplicationDbContext.Requests' is null");
+                return View(await _context.Request.ToListAsync());
+                   // Problem("Entity set 'ApplicationDbContext.Requests' is null");
             }
 
         }
