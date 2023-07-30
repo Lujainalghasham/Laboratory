@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Laboratory.Data;
 using Laboratory.Models;
 using Laboratory.Data.Migrations;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Laboratory.Controllers
 {
@@ -21,6 +23,7 @@ namespace Laboratory.Controllers
         }
 
         // GET: Requests
+        [Authorize(Roles = "Recep, Admin")]
         public async Task<IActionResult> Index(string? college, string? studentstatus)
         {
 

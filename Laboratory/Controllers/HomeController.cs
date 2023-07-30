@@ -1,4 +1,5 @@
 ﻿using Laboratory.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -26,9 +27,16 @@ namespace Laboratory.Controllers
                 if(!roleExist)
                     await _roleManager.CreateAsync(new IdentityRole(role));
             }
-            return Ok();
+            return View("index", "User added successflly");
         }
-
+        public async Task<IActionResult> AddRoleToUsers()
+        {
+            var Mohammed =await _userManager.FindByNameAsync("Mohammed@edu.sa");
+            await _userManager.AddToRoleAsync(Mohammed, "Admin");
+            var Ali = await _userManager.FindByNameAsync("Ali@edu.sa");
+            await _userManager.AddToRoleAsync(Ali, "Recep");
+            return View("index", "User added successflly");
+        }
         public IActionResult Index()
         {
             return View();

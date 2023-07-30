@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Laboratory.Data;
 using Laboratory.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Laboratory.Controllers
 {
@@ -44,7 +46,7 @@ namespace Laboratory.Controllers
 
             return View(manage);
         }
-
+       
         // GET: Manages/Create
         public IActionResult Create()
         {
@@ -68,6 +70,7 @@ namespace Laboratory.Controllers
         }
 
         // GET: Manages/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             var limitationCountResult = _context.Manage.Where(x => x.Name == "limitationDays").FirstOrDefault();
